@@ -108,6 +108,7 @@ for text in texts:
             line = line.strip()
             line = re.sub(args.cleanup,'',line)
             if len(line)<1: continue
+            line = line.encode('utf-8').strip()
             lines.append(line)
 print("got", len(lines), "lines")
 assert len(lines)>0
@@ -205,6 +206,7 @@ for pageno,font in enumerate(fonts):
         sigma += (2*rand()-1)*ssigma
         threshold += (2*rand()-1)*sthreshold
         line = pyrandom.choice(lines)
+        line = line.encode('utf-8').strip()
         size = pyrandom.choice(sizes)
         with open(pagedir+".info","w") as stream:
             stream.write("%s\n"%font)
