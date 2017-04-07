@@ -13,8 +13,12 @@ import numpy
 from ocrolib import lineest
 import ocrolib.lstm as lstm
 import traceback
-
+# vim: set fileencoding=utf8 :
+import sys
 numpy.seterr(divide='raise',over='raise',invalid='raise',under='ignore')
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 parser = argparse.ArgumentParser("train an RNN recognizer")
 
