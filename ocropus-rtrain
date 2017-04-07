@@ -13,8 +13,12 @@ import numpy
 from ocrolib import lineest
 import ocrolib.lstm as lstm
 import traceback
-
+# vim: set fileencoding=utf8 :
+import sys
 numpy.seterr(divide='raise',over='raise',invalid='raise',under='ignore')
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 parser = argparse.ArgumentParser("train an RNN recognizer")
 
@@ -131,7 +135,7 @@ if args.codec!=[]:
     charset = set()
     print(args.codec)
     for fname in ocrolib.glob_all(args.codec):
-        transcript = ocrolib.read_text(fname)
+        transcript = ocrolib.read_text(fname).encode('utf-8')
         l = list(lstm.normalize_nfkc(transcript))
         charset = charset.union(l)
     charset = sorted(list(charset))
@@ -143,9 +147,9 @@ else:
 charset = [""," ","~",]+[c for c in charset if c not in [" ","~"]]
 print("# charset size", len(charset), end=' ')
 if len(charset)<200:
-    print("[" + "".join(charset) + "]")
+    print("[" + "".join(charset) + "]").encode('utf-8').strip()
 else:
-    s = "".join(charset)
+    s = "".join(charset).encode('utf-8').strip()
     print("[" + s[:20], "...", s[-20:] + "]")
 codec = lstm.Codec().init(charset)
 
